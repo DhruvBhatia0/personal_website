@@ -117,7 +117,6 @@ import * as THREE from 'https://unpkg.com/three@0.120.1/build/three.module.js';
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 // Setup
-
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -200,7 +199,7 @@ const circle = new THREE.Mesh(
 
 scene.add(circle);
 
-circle.position.set(-10,10,85);
+circle.position.set(0,10,85);
 // circle.position.z = 30;
 // circle.position.setX(-10);
 
@@ -221,8 +220,8 @@ function moveCamera() {
   // circle.rotation.y += 0.075;
   // circle.rotation.z += 0.05;
 
-  Me.rotation.y += 0.01;
-  Me.rotation.z += 0.01;
+  Me.rotation.y = t * -0.0008;
+  Me.rotation.z = t * -0.0009;
 
   camera.position.z = t * -0.03;
   camera.position.x = t * -0.002;
