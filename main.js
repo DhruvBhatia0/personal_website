@@ -136,7 +136,7 @@ renderer.render(scene, camera);
 // Torus
 
 const geometry = new THREE.TorusGeometry(10, 2, 16, 100);
-const material = new THREE.MeshStandardMaterial({ color:0xFF6347});
+const material = new THREE.MeshNormalMaterial({wireframe:true});
 const torus = new THREE.Mesh(geometry, material);
 
 scene.add(torus);
@@ -147,7 +147,7 @@ const pointLight = new THREE.PointLight(0xffffff);
 pointLight.position.set(5, 5, 5);
 
 const ambientLight = new THREE.AmbientLight(0xffffff);
-scene.add(pointLight, ambientLight);
+scene.add(ambientLight);
 
 // Helpers
 
@@ -158,67 +158,77 @@ scene.add(pointLight, ambientLight);
 // const controls = new OrbitControls(camera, renderer.domElement);
 
 function addStar() {
-  const geometry = new THREE.SphereGeometry(0.25, 24, 24);
-  const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+  const geometry = new THREE.SphereGeometry(0.75, 24, 24);
+  const material = new THREE.MeshNormalMaterial({ color: 0xffffff});
   const star = new THREE.Mesh(geometry, material);
 
   const [x, y, z] = Array(3)
     .fill()
-    .map(() => THREE.MathUtils.randFloatSpread(100));
+    .map(() => THREE.MathUtils.randFloatSpread(300));
 
   star.position.set(x, y, z);
   scene.add(star);
 }
 
-Array(200).fill().forEach(addStar);
+Array(300).fill().forEach(addStar);
 
 // Background
 
 const spaceTexture = new THREE.TextureLoader().load('space_background.jpg');
-scene.background = spaceTexture;
+// scene.background = spaceTexture;
 
 // Avatar
 
-const jeffTexture = new THREE.TextureLoader().load('me.jpg');
+const MeTexture = new THREE.TextureLoader().load('me.jpg');
 
-const jeff = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ map: jeffTexture }));
+const Me = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ map: MeTexture }));
 
-scene.add(jeff);
+scene.add(Me);
 
-// Moon
 
-const moonTexture = new THREE.TextureLoader().load('saitama.jpg');
+// Sphere
+
+const circleTexture = new THREE.TextureLoader().load('saitama.jpg');
 // const normalTexture = new THREE.TextureLoader().load('normal.jpg');
 
-const moon = new THREE.Mesh(
-  new THREE.SphereGeometry(3, 32, 32),
-  new THREE.MeshStandardMaterial({
-    map: moonTexture
+const circle = new THREE.Mesh(
+  new THREE.SphereGeometry(12, 32, 32),
+  new THREE.MeshNormalMaterial({
+    wireframe:true
   })
 );
 
-scene.add(moon);
+scene.add(circle);
 
-moon.position.z = 30;
-moon.position.setX(-10);
+circle.position.set(-10,10,85);
+// circle.position.z = 30;
+// circle.position.setX(-10);
 
-jeff.position.z = -5;
-jeff.position.x = 2;
+Me.position.z = -5;
+Me.position.x = 2;
 
+//adding a torus knot
+const Tgeometry = new THREE.TorusKnotGeometry( 10, 3, 100, 16 );
+const Tmaterial = new THREE.MeshNormalMaterial( {wireframe: true} );
+const torusKnot = new THREE.Mesh( Tgeometry, Tmaterial );
+torusKnot.position.set(5,0,30);
+scene.add( torusKnot );
 // Scroll Animation
 
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top;
-  moon.rotation.x += 0.05;
-  moon.rotation.y += 0.075;
-  moon.rotation.z += 0.05;
+  // circle.rotation.x += 0.05;
+  // circle.rotation.y += 0.075;
+  // circle.rotation.z += 0.05;
 
-  jeff.rotation.y += 0.01;
-  jeff.rotation.z += 0.01;
+  Me.rotation.y += 0.01;
+  Me.rotation.z += 0.01;
 
   camera.position.z = t * -0.03;
   camera.position.x = t * -0.002;
   camera.rotation.y = t * -0.0002;
+  camera.rotation.z = t * -0.001;
+  camera.rotation.x = t * -0.0001;
 }
 
 document.body.onscroll = moveCamera;
@@ -233,7 +243,13 @@ function animate() {
   torus.rotation.y += 0.005;
   torus.rotation.z += 0.01;
 
-  moon.rotation.x += 0.005;
+  torusKnot.rotation.x += 0.01;
+  torusKnot.rotation.y += 0.005;
+  torusKnot.rotation.z += 0.01;
+
+  circle.rotation.x += 0.01;
+  circle.rotation.y += 0.005;
+  circle.rotation.z += 0.01;
 
   // controls.update();
 
