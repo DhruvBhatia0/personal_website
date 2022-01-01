@@ -173,7 +173,7 @@ Array(300).fill().forEach(addStar);
 
 // Background
 
-const spaceTexture = new THREE.TextureLoader().load('space_background.jpg');
+//const spaceTexture = new THREE.TextureLoader().load('space_background.jpg');
 // scene.background = spaceTexture;
 
 // Avatar
@@ -187,7 +187,7 @@ scene.add(Me);
 
 // Sphere
 
-const circleTexture = new THREE.TextureLoader().load('saitama.jpg');
+//const circleTexture = new THREE.TextureLoader().load('saitama.jpg');
 // const normalTexture = new THREE.TextureLoader().load('normal.jpg');
 
 const circle = new THREE.Mesh(

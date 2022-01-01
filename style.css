@@ -3,7 +3,9 @@ canvas {
   top: 0;
   left: 0;
 }
-
+html{
+  background-color: black;
+}
 :root {
   --dark-bg: rgba(15, 15, 15, 0.85);
   --spacing: 150px;
@@ -81,4 +83,30 @@ a{
 }
 body::-webkit-scrollbar {
   display: none; /* for Chrome, Safari, and Opera */
+}
+
+@media only screen and (max-width: 600px) {
+  main{
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+  }
+  header {
+    grid-column: 1 / span 7;
+  }
+  section{
+    grid-column: 1 / 10;
+  }
+  .left{
+    grid-column: 1 / 10;
+  }
+  blockquote p{
+    font-size: 2rem;
+    border-radius: 0;
+  }
+}
+
+@media only screen and (max-width: 1200px){
+  blockquote p{
+    border-radius: 0;
+  }
 }
